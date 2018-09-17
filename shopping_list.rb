@@ -5,6 +5,7 @@ module Menu
 		"Please choose from the menu:
 		A. Add item to shopping list
 		S. Show shopping list
+		U. Update item on shopping list
 		D. Delete item from shopping list
 		Q. Quit"
 	end
@@ -32,8 +33,14 @@ class List
 		@shopping_list << item
 	end
 
+	def update(index, item)
+		 @shopping_list[index-1] = item
+	end
+
 	def show
-		@shopping_list
+		@shopping_list.each.with_index(1) do |item, index|
+			puts "#{index}) #{item}"
+		end
 	end
 
 end
@@ -67,7 +74,10 @@ if __FILE__ == $PROGRAM_NAME
 		when 'a'
 			list.add(Item.new(prompt('What item would you like to add?')))
 		when 's'
-			puts list.show
+			list.show
+		when 'u'
+			list.show
+			list.update(prompt('Which item would you like to update? (enter the number)').to_i, (prompt('What is the new item?')))
 		end
 		prompt('Press enter to continue', '')
 	end
