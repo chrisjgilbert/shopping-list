@@ -7,6 +7,7 @@ module Menu
 		S. Show shopping list
 		U. Update item on shopping list
 		D. Delete item from shopping list
+		W. Write to file
 		Q. Quit"
 	end
 end
@@ -47,6 +48,11 @@ class List
 		@shopping_list.delete_at(index-1)
 	end
 
+	def write_to_file(filename)
+		f = File.new(filename, 'w')
+		@shopping_list.map.with_index(1) { |item, index| f.puts("#{index}) #{item}") }
+		f.close
+	end
 
 end
 
@@ -90,6 +96,8 @@ if __FILE__ == $PROGRAM_NAME
 			list.delete(prompt('Enter the number of the item you would like to delete').to_i)
 			puts "Your updated list:"
 			list show
+		when 'w'
+			list.write_to_file(prompt('Enter filename'))
 		else
 			puts "Sorry I didn't catch that!"
 		end
