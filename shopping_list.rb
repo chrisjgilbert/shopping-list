@@ -43,6 +43,11 @@ class List
 		end
 	end
 
+	def delete(index)
+		@shopping_list.delete_at(index-1)
+	end
+
+
 end
 
 
@@ -77,7 +82,16 @@ if __FILE__ == $PROGRAM_NAME
 			list.show
 		when 'u'
 			list.show
-			list.update(prompt('Which item would you like to update? (enter the number)').to_i, (prompt('What is the new item?')))
+			list.update(prompt('Enter the number of the item you would like to update').to_i, (prompt('What is the new item?')))
+			puts "Your updated list:"
+			list show
+		when 'd'
+			list.show
+			list.delete(prompt('Enter the number of the item you would like to delete').to_i)
+			puts "Your updated list:"
+			list show
+		else
+			puts "Sorry I didn't catch that!"
 		end
 		prompt('Press enter to continue', '')
 	end
